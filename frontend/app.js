@@ -5,7 +5,7 @@ document.getElementById('lookup-btn').addEventListener('click', function() {
         return;
     }
 
-    fetch(`https://<YOUR-FUNCTION-URL>/api/iplookup?ip=${ip}`)
+    fetch(`https://<your-static-web-app-name>.azurestaticwebapps.net/api/iplookup?ip=${ip}`)
         .then(response => response.json())
         .then(data => {
             document.getElementById('result').innerHTML = `
