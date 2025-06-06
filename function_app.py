@@ -6,21 +6,18 @@ import azure.functions as func
 import json
 
 def get_ip_info(ip_address):
-    # WHOIS informatie ophalen
     try:
         whois_info = whois.whois(ip_address)
     except Exception as e:
         logging.error(f"Error fetching WHOIS data for {ip_address}: {e}")
         whois_info = {}
 
-    # DNS hostname ophalen
     try:
         hostname = socket.gethostbyaddr(ip_address)[0]
     except socket.herror as e:
         logging.error(f"Error fetching hostname for {ip_address}: {e}")
         hostname = "N/A"
     
-    # Geolocatie-informatie ophalen (via een openbare API)
     try:
         geolocation_url = f"http://ip-api.com/json/{ip_address}"
         geo_response = requests.get(geolocation_url)
@@ -29,7 +26,6 @@ def get_ip_info(ip_address):
         logging.error(f"Error fetching geolocation for {ip_address}: {e}")
         geo_info = {}
 
-    # Gegevens verzamelen
     info = {
         'ASN': whois_info.get('asn', 'N/A'),
         'Hostname': hostname,
@@ -48,7 +44,6 @@ def get_ip_info(ip_address):
     return info
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    # Haal het IP-adres uit de query string
     ip = req.params.get('ip')
     if not ip:
         return func.HttpResponse(
@@ -60,7 +55,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     try:
         info = get_ip_info(ip)
         return func.HttpResponse(
-            json.dumps(info),  # Retourneer de gegevens als JSON
+            json.dumps(info), 
             mimetype="application/json"
         )
     except Exception as e:
