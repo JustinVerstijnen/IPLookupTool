@@ -5,21 +5,21 @@ import requests
 import azure.functions as func
 
 def get_ip_info(ip_address):
-    # WHOIS information
+    # WHOIS informatie ophalen
     whois_info = whois.whois(ip_address)
     
-    # DNS hostname
+    # DNS hostname ophalen
     try:
         hostname = socket.gethostbyaddr(ip_address)[0]
     except socket.herror:
         hostname = "N/A"
     
-    # Geolocation information
+    # Geolocatie-informatie ophalen (via een openbare API)
     geolocation_url = f"http://ip-api.com/json/{ip_address}"
     geo_response = requests.get(geolocation_url)
     geo_info = geo_response.json()
     
-    # Gathered information
+    # Gegevens verzamelen
     info = {
         'ASN': whois_info.get('asn', 'N/A'),
         'Hostname': hostname,
@@ -38,7 +38,7 @@ def get_ip_info(ip_address):
     return info
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    # Get IP address from query string
+    # Haal het IP-adres uit de query string
     ip = req.params.get('ip')
     if not ip:
         return func.HttpResponse("Please pass an IP address in the query string", status_code=400)
@@ -46,6 +46,6 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     info = get_ip_info(ip)
     
     return func.HttpResponse(
-        str(info),  # You can also format this as JSON
+        str(info),  # Je kunt de output ook als JSON formatteren
         mimetype="application/json"
     )
