@@ -4,20 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IP Lookup Tool</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #f7f7f7; padding: 2rem; }
-    .container { background: white; padding: 2rem; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    h1 { text-align: center; }
-    input, button { padding: 0.5rem; font-size: 1rem; }
-    .result { margin-top: 1rem; padding: 1rem; border: 1px solid #ccc; border-radius: 8px; background: #fafafa; }
-    .error { color: red; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <h1>IP Lookup Tool</h1>
-    <input type="text" id="ipInput" placeholder="Enter IP address" />
-    <button onclick="lookupIP()">Lookup</button>
+    <div class="form-group">
+      <input type="text" id="ipInput" placeholder="Enter IP address" />
+      <button onclick="lookupIP()">Lookup</button>
+      <button onclick="exportResult()">Export</button>
+    </div>
     <div id="result" class="result"></div>
   </div>
 
@@ -37,17 +33,38 @@
         }
 
         resultDiv.innerHTML = `
-          <strong>IP:</strong> ${data.ip}<br>
-          <strong>ISP:</strong> ${data.isp}<br>
-          <strong>Country:</strong> ${data.country} (${data.country_code})<br>
-          <strong>ASN:</strong> ${data.asn}<br>
-          <strong>Org:</strong> ${data.org}<br>
-          <strong>City:</strong> ${data.city}<br>
-          <strong>Region:</strong> ${data.region}<br>
-          <strong>Timezone:</strong> ${data.timezone}<br>
+          <table>
+            <tr><td><strong>IP:</strong></td><td>${data.ip}</td></tr>
+            <tr><td><strong>Type:</strong></td><td>${data.type}</td></tr>
+            <tr><td><strong>Continent:</strong></td><td>${data.continent} (${data.continent_code})</td></tr>
+            <tr><td><strong>Country:</strong></td><td>${data.country} (${data.country_code})</td></tr>
+            <tr><td><strong>Region:</strong></td><td>${data.region}</td></tr>
+            <tr><td><strong>City:</strong></td><td>${data.city}</td></tr>
+            <tr><td><strong>Latitude:</strong></td><td>${data.latitude}</td></tr>
+            <tr><td><strong>Longitude:</strong></td><td>${data.longitude}</td></tr>
+            <tr><td><strong>ASN:</strong></td><td>${data.asn}</td></tr>
+            <tr><td><strong>Org:</strong></td><td>${data.org}</td></tr>
+            <tr><td><strong>ISP:</strong></td><td>${data.isp}</td></tr>
+            <tr><td><strong>Timezone:</strong></td><td>${data.timezone}</td></tr>
+            <tr><td><strong>Currency:</strong></td><td>${data.currency}</td></tr>
+          </table>
         `;
+
+        window.latestData = data;
       } catch (err) {
         resultDiv.innerHTML = `<div class='error'>Error: ${err.message}</div>`;
+      }
+    }
+
+    function exportResult() {
+      if (!window.latestData) {
+        alert("No data to export.");
+        return;
+      }
+
+      const exportWindow = window.open("export.html");
+      exportWindow.onload = function() {
+        exportWindow.postMessage(window.latestData, "*");
       }
     }
   </script>
