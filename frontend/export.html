@@ -5,10 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Export - IP Lookup</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
   <div class="container">
-    <h1>Export Result</h1>
+    <div class="logo">
+      <a href="https://justinverstijnen.nl" target="_blank">
+        <img src="https://justinverstijnen.nl/wp-content/uploads/2025/04/cropped-Logo-2.0-Transparant.png" width="50" height="50" alt="Logo">
+      </a>
+    </div>
+    <h1 id="exportTitle">Export Result</h1>
+    <p class="subtitle">Report generated with <a href="https://iplookup.jvapp.nl" target="_blank">Justin Verstijnen IPLookupTool</a></p>
     <div id="exportResult" class="result"></div>
   </div>
 
@@ -19,6 +26,9 @@
         document.getElementById("exportResult").innerHTML = "No data received.";
         return;
       }
+
+      document.getElementById("exportTitle").innerText = `Export result for ${data.ip}`;
+
       document.getElementById("exportResult").innerHTML = `
         <table>
           <tr><td><strong>IP:</strong></td><td>${data.ip}</td></tr>
