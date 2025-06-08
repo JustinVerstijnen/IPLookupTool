@@ -54,19 +54,19 @@
         resultDiv.innerHTML = `
           <div class="fade-in">
           <table>
-            <tr><td><strong>IP:</strong></td><td>${data.ip}</td></tr>
-            <tr><td><strong>Type:</strong></td><td>${data.type}</td></tr>
-            <tr><td><strong>Continent:</strong></td><td>${data.continent} (${data.continent_code})</td></tr>
-            <tr><td><strong>Country:</strong></td><td>${data.country} (${data.country_code})</td></tr>
-            <tr><td><strong>Region:</strong></td><td>${data.region}</td></tr>
-            <tr><td><strong>City:</strong></td><td>${data.city}</td></tr>
-            <tr><td><strong>Latitude:</strong></td><td>${data.latitude}</td></tr>
-            <tr><td><strong>Longitude:</strong></td><td>${data.longitude}</td></tr>
-            <tr><td><strong>ASN:</strong></td><td>${data.asn}</td></tr>
-            <tr><td><strong>Org:</strong></td><td>${data.org}</td></tr>
-            <tr><td><strong>ISP:</strong></td><td>${data.isp}</td></tr>
-            <tr><td><strong>Timezone:</strong></td><td>${data.timezone}</td></tr>
-            <tr><td><strong>Currency:</strong></td><td>${data.currency}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="The queried IP address">IP:</span></td><td>${data.ip}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="IPv4 or IPv6 address type">Type:</span></td><td>${data.type}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Continent where IP is located">Continent:</span></td><td>${data.continent} (${data.continent_code})</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Country where IP is located">Country:</span></td><td>${data.country} (${data.country_code})</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="State or province">Region:</span></td><td>${data.region}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="City where IP is located">City:</span></td><td>${data.city}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Geographic latitude">Latitude:</span></td><td>${data.latitude}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Geographic longitude">Longitude:</span></td><td>${data.longitude}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Autonomous System Number">ASN:</span></td><td>${data.asn}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Organization name">Org:</span></td><td>${data.org}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Internet Service Provider">ISP:</span></td><td>${data.isp}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Local timezone">Timezone:</span></td><td>${data.timezone}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Local currency">Currency:</span></td><td>${data.currency}</td></tr>
           </table>
           </div>
         `;
@@ -96,7 +96,7 @@
         const data = await res.json();
         const myIp = data.ip;
         const myIpDiv = document.getElementById("myIpLink");
-        myIpDiv.innerHTML = `<p style="font-size:10px;>"><span style="color: #999999;"><a style="color: #999999;" href="#" onclick="document.getElementById('ipInput').value='${myIp}'; lookupIP('${myIp}'); return false;">Use my current IP: ${myIp}</a></span></p>`;
+        myIpDiv.innerHTML = `<p style="font-size:10px;"><span style="color: #999999;"><a style="color: #999999;" href="#" onclick="document.getElementById('ipInput').value='${myIp}'; lookupIP('${myIp}'); return false;">Use my current IP: ${myIp}</a></span></p>`;
       } catch(e) {
         console.error("Could not retrieve public IP", e);
       }
