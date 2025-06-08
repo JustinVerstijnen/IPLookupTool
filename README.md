@@ -25,16 +25,7 @@ A simple IP WHOIS lookup tool that queries public WHOIS data for both IPv4 and I
 2. Click the **Lookup** button.
 3. The public WHOIS information will be displayed in a structured table format.
 
-## Example use cases
-
-- Checking IP ownership for security audits
-- Investigating unknown incoming traffic
-- Network troubleshooting
-- Educational purposes
-
----
-
-## How to clone and deploy your own version
+## Clone and deploy your own version
 
 You can easily host your own copy of this tool using Azure Static Web Apps.
 
@@ -43,3 +34,18 @@ You can easily host your own copy of this tool using Azure Static Web Apps.
 ```bash
 git clone https://github.com/your-username/IPLookupTool.git
 cd IPLookupTool
+```
+
+### Azure deployment steps
+
+1. Create a new **Azure Static Web App** in your Azure portal.
+2. Link your GitHub repository to the Static Web App.
+3. Use the following build settings:
+   - **App location:** `frontend`
+   - **API location:** `api`
+   - **Output location:** leave empty
+4. Azure will automatically detect the Azure Function and install dependencies from `requirements.txt`.
+
+## License
+
+This project is licensed under the MIT License.
