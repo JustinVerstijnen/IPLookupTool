@@ -15,8 +15,8 @@
         <img src="https://justinverstijnen.nl/wp-content/uploads/2025/04/cropped-Logo-2.0-Transparant.png" width="50" height="50" alt="Logo">
       </a>
     </div>
-    <h1>IP Lookup Tool</h1>
-    <p class="subtitle">Quickly retrieve public IP information including ASN, ISP, location and more.</p>
+    <h1>IP Lookup Tool - justinverstijnen.nl</h1>
+    <p class="subtitle">Quick and easy tool to gather public IPv4 and IPv6 information.</p>
     <div id="myIpLink" class="my-ip"></div>
     <div class="form-group">
       <input type="text" id="ipInput" placeholder="Enter IP address" />
@@ -54,19 +54,19 @@
         resultDiv.innerHTML = `
           <div class="fade-in">
           <table>
-            <tr><td><span class="tooltip" data-tooltip="The queried IP address">IP:</span></td><td>${data.ip}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="IPv4 or IPv6 address type">Type:</span></td><td>${data.type}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Continent where IP is located">Continent:</span></td><td>${data.continent} (${data.continent_code})</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Country where IP is located">Country:</span></td><td>${data.country} (${data.country_code})</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="State or province">Region:</span></td><td>${data.region}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="City where IP is located">City:</span></td><td>${data.city}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Geographic latitude">Latitude:</span></td><td>${data.latitude}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Geographic longitude">Longitude:</span></td><td>${data.longitude}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Autonomous System Number">ASN:</span></td><td>${data.asn}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Organization name">Org:</span></td><td>${data.org}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Internet Service Provider">ISP:</span></td><td>${data.isp}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Local timezone">Timezone:</span></td><td>${data.timezone}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Local currency">Currency:</span></td><td>${data.currency}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="The queried IP address"><strong>IP:</strong></span></td><td>${data.ip}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="IPv4 or IPv6 address type"><strong>Type:</strong></span></td><td>${data.type}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Continent where IP is located"><strong>Continent:</strong></span></td><td>${data.continent} (${data.continent_code})</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Country where IP is located"><strong>Country:</strong></span></td><td>${data.country} (${data.country_code})</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="State or province"><strong>Region:</strong></span></td><td>${data.region}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="City where IP is located"><strong>City:</strong></span></td><td>${data.city}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Geographic latitude"><strong>Latitude:</strong></span></td><td>${data.latitude}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Geographic longitude"><strong>Longitude:</strong></span></td><td>${data.longitude}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Autonomous System Number"><strong>ASN:</strong></span></td><td>${data.asn}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Organization name"><strong>Org:</strong></span></td><td>${data.org}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Internet Service Provider"><strong>ISP:</strong></span></td><td>${data.isp}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Local timezone"><strong>Timezone:</strong></span></td><td>${data.timezone}</td></tr>
+            <tr><td><span class="tooltip" data-tooltip="Local currency"><strong>Currency:</strong></span></td><td>${data.currency}</td></tr>
           </table>
           </div>
         `;
