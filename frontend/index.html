@@ -96,7 +96,7 @@
         const data = await res.json();
         const myIp = data.ip;
         const myIpDiv = document.getElementById("myIpLink");
-        myIpDiv.innerHTML = `<a href="#" onclick="document.getElementById('ipInput').value='${myIp}'; lookupIP('${myIp}'); return false;">Use my current IP: ${myIp}</a>`;
+        myIpDiv.innerHTML = `<p style="font-size:10px;>"><span style="color: #999999;"><a style="color: #999999;" href="#" onclick="document.getElementById('ipInput').value='${myIp}'; lookupIP('${myIp}'); return false;">Use my current IP: ${myIp}</a></span></p>`;
       } catch(e) {
         console.error("Could not retrieve public IP", e);
       }
