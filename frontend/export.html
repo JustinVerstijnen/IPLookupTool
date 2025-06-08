@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Export - IP Lookup</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Export Result</h1>
+    <div id="exportResult" class="result"></div>
+  </div>
+
+  <script>
+    window.addEventListener("message", function(event) {
+      const data = event.data;
+      if (!data) {
+        document.getElementById("exportResult").innerHTML = "No data received.";
+        return;
+      }
+      document.getElementById("exportResult").innerHTML = `
+        <table>
+          <tr><td><strong>IP:</strong></td><td>${data.ip}</td></tr>
+          <tr><td><strong>Type:</strong></td><td>${data.type}</td></tr>
+          <tr><td><strong>Continent:</strong></td><td>${data.continent} (${data.continent_code})</td></tr>
+          <tr><td><strong>Country:</strong></td><td>${data.country} (${data.country_code})</td></tr>
+          <tr><td><strong>Region:</strong></td><td>${data.region}</td></tr>
+          <tr><td><strong>City:</strong></td><td>${data.city}</td></tr>
+          <tr><td><strong>Latitude:</strong></td><td>${data.latitude}</td></tr>
+          <tr><td><strong>Longitude:</strong></td><td>${data.longitude}</td></tr>
+          <tr><td><strong>ASN:</strong></td><td>${data.asn}</td></tr>
+          <tr><td><strong>Org:</strong></td><td>${data.org}</td></tr>
+          <tr><td><strong>ISP:</strong></td><td>${data.isp}</td></tr>
+          <tr><td><strong>Timezone:</strong></td><td>${data.timezone}</td></tr>
+          <tr><td><strong>Currency:</strong></td><td>${data.currency}</td></tr>
+        </table>
+      `;
+    });
+  </script>
+</body>
+</html>
