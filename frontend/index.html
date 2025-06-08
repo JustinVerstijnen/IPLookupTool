@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +17,7 @@
     </div>
     <h1>IP Lookup Tool</h1>
     <p class="subtitle">Quickly retrieve public IP information including ASN, ISP, location and more.</p>
+    <div id="myIpLink" class="my-ip"></div>
     <div class="form-group">
       <input type="text" id="ipInput" placeholder="Enter IP address" />
       <button id="lookupBtn" onclick="lookupIP()"><i class="ph ph-magnifying-glass"></i> Lookup</button>
@@ -31,8 +33,8 @@
       }
     });
 
-    async function lookupIP() {
-      const ip = document.getElementById('ipInput').value.trim();
+    async function lookupIP(ipOverride = null) {
+      const ip = ipOverride || document.getElementById('ipInput').value.trim();
       const resultDiv = document.getElementById('result');
       resultDiv.innerHTML = "Loading...";
       
@@ -86,6 +88,19 @@
         exportWindow.postMessage(window.latestData, "*");
       }
     }
+
+    // Fetch public IP on page load
+    window.addEventListener("load", async () => {
+      try {
+        const res = await fetch("https://api.ipify.org?format=json");
+        const data = await res.json();
+        const myIp = data.ip;
+        const myIpDiv = document.getElementById("myIpLink");
+        myIpDiv.innerHTML = `<a href="#" onclick="document.getElementById('ipInput').value='${myIp}'; lookupIP('${myIp}'); return false;">Use my current IP: ${myIp}</a>`;
+      } catch(e) {
+        console.error("Could not retrieve public IP", e);
+      }
+    });
   </script>
 </body>
 </html>
