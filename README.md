@@ -1,11 +1,10 @@
 # IP Lookup Tool
 
-A simple IP WHOIS lookup tool that queries public WHOIS data for both IPv4 and IPv6 addresses. The tool is built with Azure Static Web Apps and Azure Functions using Python, HTML, CSS, and JavaScript.
+A simple IP WHOIS lookup tool that queries the site https://ipwhois.app/ and wraps it in a nice and simple overview with information for both IPv4 and IPv6 addresses. The tool is built with Azure Static Web Apps and Azure Functions using HTML, CSS, and JavaScript.
 
 ## What does this tool do?
 
 - Accepts any valid IPv4 or IPv6 address
-- Queries public WHOIS information using RDAP protocol (no API key required)
 - Displays ownership and registration details such as:
   - IP range (inetnum)
   - Netname
@@ -35,16 +34,6 @@ You can easily host your own copy of this tool using Azure Static Web Apps.
 git clone https://github.com/your-username/IPLookupTool.git
 cd IPLookupTool
 ```
-
-### Azure deployment steps
-
-1. Create a new **Azure Static Web App** in your Azure portal.
-2. Link your GitHub repository to the Static Web App.
-3. Use the following build settings:
-   - **App location:** `frontend`
-   - **API location:** `api`
-   - **Output location:** leave empty
-4. Azure will automatically detect the Azure Function and install dependencies from `requirements.txt`.
 
 ## License
 
