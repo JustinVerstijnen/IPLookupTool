@@ -5,21 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IP Lookup Tool</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
   <div class="container">
+    <div class="logo">
+      <a href="https://justinverstijnen.nl" target="_blank">
+        <img src="https://justinverstijnen.nl/wp-content/uploads/2025/04/cropped-Logo-2.0-Transparant.png" width="50" height="50" alt="Logo">
+      </a>
+    </div>
     <h1>IP Lookup Tool</h1>
+    <p class="subtitle">Quickly retrieve public IP information including ASN, ISP, location and more.</p>
     <div class="form-group">
       <input type="text" id="ipInput" placeholder="Enter IP address" />
-      <button onclick="lookupIP()">Lookup</button>
-      <button onclick="exportResult()">Export</button>
+      <button id="lookupBtn" onclick="lookupIP()"><i class="ph ph-magnifying-glass"></i> Lookup</button>
+      <button id="exportBtn" onclick="exportResult()"><i class="ph ph-download"></i> Export</button>
     </div>
     <div id="result" class="result"></div>
   </div>
 
   <script>
+    document.getElementById("ipInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        lookupIP();
+      }
+    });
+
     async function lookupIP() {
-      const ip = document.getElementById('ipInput').value;
+      const ip = document.getElementById('ipInput').value.trim();
       const resultDiv = document.getElementById('result');
       resultDiv.innerHTML = "Loading...";
       
@@ -28,11 +41,16 @@
         const data = await response.json();
 
         if (data.success === false) {
-          resultDiv.innerHTML = `<div class='error'>Error: ${data.message}</div>`;
+          let message = data.message;
+          if (message === 'reserved range') {
+            message = "Please input a valid and public IPv4 or IPv6 address.";
+          }
+          resultDiv.innerHTML = `<div class='error'>Error: ${message}</div>`;
           return;
         }
 
         resultDiv.innerHTML = `
+          <div class="fade-in">
           <table>
             <tr><td><strong>IP:</strong></td><td>${data.ip}</td></tr>
             <tr><td><strong>Type:</strong></td><td>${data.type}</td></tr>
@@ -48,6 +66,7 @@
             <tr><td><strong>Timezone:</strong></td><td>${data.timezone}</td></tr>
             <tr><td><strong>Currency:</strong></td><td>${data.currency}</td></tr>
           </table>
+          </div>
         `;
 
         window.latestData = data;

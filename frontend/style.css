@@ -12,12 +12,22 @@ body {
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.logo {
+  margin-bottom: 10px;
 }
 
 h1 {
-  text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   color: #333;
+}
+
+.subtitle {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 20px;
 }
 
 .form-group {
@@ -35,19 +45,40 @@ input[type="text"] {
   flex: 1;
 }
 
-button {
+#lookupBtn {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #0078d7;
+  background-color: #88B0DC;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-button:hover {
-  background-color: #005fa3;
+#lookupBtn:hover {
+  background-color: #6a99d0;
+}
+
+#exportBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #92dba5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#exportBtn:hover {
+  background-color: #79c48d;
 }
 
 .result {
@@ -57,6 +88,7 @@ button:hover {
 .result table {
   width: 100%;
   border-collapse: collapse;
+  text-align: left;
 }
 
 .result td {
@@ -67,4 +99,13 @@ button:hover {
 .error {
   color: red;
   font-weight: bold;
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
