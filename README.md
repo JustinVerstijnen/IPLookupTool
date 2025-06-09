@@ -24,17 +24,6 @@ A simple IP WHOIS lookup tool that queries the site https://ipwhois.app/ and wra
 2. Click the **Lookup** button.
 3. The public WHOIS information will be displayed in a structured table format.
 
-## Clone and deploy your own version
-
-You can easily host your own copy of this tool using Azure Static Web Apps.
-
-### Clone this repository
-
-```bash
-git clone https://github.com/your-username/IPLookupTool.git
-cd IPLookupTool
-```
-
 ## License
 
 This project is licensed under the MIT License.
