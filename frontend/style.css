@@ -168,3 +168,6 @@ input[type="text"] {
 
 .orange-btn {background-color:#ff8c42;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;color:white;font-size:15px;transition:opacity .2s;}
 .orange-btn:hover{opacity:.85;}
+/* updated orange button */
+.orange-btn {background-color:#e6a564;border:none;padding:10px 18px;border-radius:6px;cursor:pointer;color:white;font-size:15px;display:inline-flex;align-items:center;gap:6px;font-family:'Segoe UI',sans-serif;transition:opacity .2s;}
+.orange-btn:hover{opacity:.85;}
