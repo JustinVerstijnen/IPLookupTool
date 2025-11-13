@@ -20,12 +20,12 @@
     <h1>IP Lookup Tool</h1>
     <p class="subtitle">Quick and easy tool to gather public IPv4 and IPv6 information.</p>
     <div id="myIpShown" style="font-size:22px;font-weight:600;margin-bottom:10px;"></div>
-<button id="useMyIpBtn" class="orange-btn" style="display:none;">Use current IP</button>
+<button id="useMyIpBtn" class="orange-btn">Use current IP</button>
     <div class="form-group">
       <input type="text" id="ipInput" placeholder="Enter IP address" />
       <button id="lookupBtn" onclick="lookupIP()"><i class="ph ph-magnifying-glass"></i> Lookup</button>
 
-<button id="useMyIpBtn" class="orange-btn" style="display:none;">
+<button id="useMyIpBtn" class="orange-btn">
   <i class="ph ph-crosshair"></i> Use my IP
 </button>
 
@@ -34,6 +34,7 @@
     <div id="result" class="result"></div>
   </div>
 
+  
   <script>
     document.getElementById("ipInput").addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
@@ -44,8 +45,12 @@
     async function lookupIP(ipOverride = null) {
       const ip = ipOverride || document.getElementById('ipInput').value.trim();
       const resultDiv = document.getElementById('result');
+      if (!ip) {
+        resultDiv.innerHTML = "<div class='error'>Please enter an IP address.</div>";
+        return;
+      }
       resultDiv.innerHTML = "Loading...";
-      
+
       try {
         const response = await fetch(`https://ipwhois.app/json/${ip}`);
         const data = await response.json();
@@ -92,25 +97,35 @@
       }
 
       const exportWindow = window.open("export.html");
-      exportWindow.
-window.addEventListener("load", async () => {
-  try {
-    const res = await fetch("https://api.ipify.org?format=json&type=v4");
-    const data = await res.json();
-    const myIp = data.ip;
-    document.getElementById("myIpShown").textContent = `Your IP: ${myIp}`;
-    const btn = document.getElementById("useMyIpBtn");
-    btn.style.display = "inline-block";
-    btn.addEventListener("click", () => {
-      document.getElementById("ipInput").value = myIp;
-      lookupIP(myIp);
-      return;
-      document.getElementById("ipInput").value = myIp;
+      exportWindow.onload = function() {
+        exportWindow.postMessage(window.latestData, "*");
+      }
+    }
+
+    // Fetch public IPv4 on page load and wire up the "Use my IP" button
+    window.addEventListener("load", async () => {
+      try {
+        const res = await fetch("https://api.ipify.org?format=json&type=v4");
+        const data = await res.json();
+        const myIp = data.ip;
+
+        const myIpShown = document.getElementById("myIpShown");
+        if (myIpShown) {
+          myIpShown.textContent = `Your IP: ${myIp}`;
+        }
+
+        const btn = document.getElementById("useMyIpBtn");
+        if (btn) {
+          btn.addEventListener("click", () => {
+            document.getElementById("ipInput").value = myIp;
+            lookupIP(myIp);
+          });
+        }
+      } catch (e) {
+        console.error("Could not retrieve IPv4 address", e);
+      }
     });
-  } catch (e) {
-    console.error("Could not retrieve IPv4 address", e);
-  }
-});
-</script>
+  </script>
+
 </body>
 </html>
