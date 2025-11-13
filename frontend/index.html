@@ -19,7 +19,8 @@
     </div>
     <h1>IP Lookup Tool</h1>
     <p class="subtitle">Quick and easy tool to gather public IPv4 and IPv6 information.</p>
-    <div id="myIpLink" class="my-ip"></div>
+    <div id="myIpShown" style="font-size:22px;font-weight:600;margin-bottom:10px;"></div>
+<button id="useMyIpBtn" class="orange-btn" style="display:none;">Use current IP</button>
     <div class="form-group">
       <input type="text" id="ipInput" placeholder="Enter IP address" />
       <button id="lookupBtn" onclick="lookupIP()"><i class="ph ph-magnifying-glass"></i> Lookup</button>
@@ -86,23 +87,22 @@
       }
 
       const exportWindow = window.open("export.html");
-      exportWindow.onload = function() {
-        exportWindow.postMessage(window.latestData, "*");
-      }
-    }
-
-    // Fetch public IP on page load
-    window.addEventListener("load", async () => {
-      try {
-        const res = await fetch("https://api.ipify.org?format=json");
-        const data = await res.json();
-        const myIp = data.ip;
-        const myIpDiv = document.getElementById("myIpLink");
-        myIpDiv.innerHTML = `<p style="font-size:10px;"><span style="color: #999999;"><a style="color: #999999;" href="#" onclick="document.getElementById('ipInput').value='${myIp}'; lookupIP('${myIp}'); return false;">Use my current IP: ${myIp}</a></span></p>`;
-      } catch(e) {
-        console.error("Could not retrieve public IP", e);
-      }
+      exportWindow.
+window.addEventListener("load", async () => {
+  try {
+    const res = await fetch("https://api.ipify.org?format=json&type=v4");
+    const data = await res.json();
+    const myIp = data.ip;
+    document.getElementById("myIpShown").textContent = `Your IP: ${myIp}`;
+    const btn = document.getElementById("useMyIpBtn");
+    btn.style.display = "inline-block";
+    btn.addEventListener("click", () => {
+      document.getElementById("ipInput").value = myIp;
     });
-  </script>
+  } catch (e) {
+    console.error("Could not retrieve IPv4 address", e);
+  }
+});
+</script>
 </body>
 </html>
