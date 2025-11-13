@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,15 +16,19 @@
         <img src="https://justinverstijnen.nl/wp-content/uploads/2025/04/cropped-Logo-2.0-Transparant.png" width="50" height="50" alt="Logo">
       </a>
     </div>
+
     <h1>IP Lookup Tool</h1>
     <p class="subtitle">Quick and easy tool to gather public IPv4 and IPv6 information.</p>
+
     <div id="myIpShown" style="font-size:22px;font-weight:600;margin-bottom:10px;"></div>
-<button id="useMyIpBtn" class="orange-btn" style="display:none;">Use current IP</button>
+    <button id="useMyIpBtn" class="orange-btn" style="display:none;">Use current IP</button>
+
     <div class="form-group">
       <input type="text" id="ipInput" placeholder="Enter IP address" />
       <button id="lookupBtn" onclick="lookupIP()"><i class="ph ph-magnifying-glass"></i> Lookup</button>
       <button id="exportBtn" onclick="exportResult()"><i class="ph ph-download"></i> Export</button>
     </div>
+
     <div id="result" class="result"></div>
   </div>
 
@@ -57,19 +60,19 @@
         resultDiv.innerHTML = `
           <div class="fade-in">
           <table>
-            <tr><td><span class="tooltip" data-tooltip="The queried IP address"><strong>IP:</strong></span></td><td>${data.ip}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="IPv4 or IPv6 address type"><strong>Type:</strong></span></td><td>${data.type}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Continent where IP is located"><strong>Continent:</strong></span></td><td>${data.continent} (${data.continent_code})</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Country where IP is located"><strong>Country:</strong></span></td><td>${data.country} (${data.country_code})</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="State or province"><strong>Region:</strong></span></td><td>${data.region}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="City where IP is located"><strong>City:</strong></span></td><td>${data.city}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Geographic latitude"><strong>Latitude:</strong></span></td><td>${data.latitude}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Geographic longitude"><strong>Longitude:</strong></span></td><td>${data.longitude}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Autonomous System Number"><strong>ASN:</strong></span></td><td>${data.asn}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Organization name"><strong>Org:</strong></span></td><td>${data.org}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Internet Service Provider"><strong>ISP:</strong></span></td><td>${data.isp}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Local timezone"><strong>Timezone:</strong></span></td><td>${data.timezone}</td></tr>
-            <tr><td><span class="tooltip" data-tooltip="Local currency"><strong>Currency:</strong></span></td><td>${data.currency}</td></tr>
+            <tr><td><strong>IP:</strong></td><td>${data.ip}</td></tr>
+            <tr><td><strong>Type:</strong></td><td>${data.type}</td></tr>
+            <tr><td><strong>Continent:</strong></td><td>${data.continent} (${data.continent_code})</td></tr>
+            <tr><td><strong>Country:</strong></td><td>${data.country} (${data.country_code})</td></tr>
+            <tr><td><strong>Region:</strong></td><td>${data.region}</td></tr>
+            <tr><td><strong>City:</strong></td><td>${data.city}</td></tr>
+            <tr><td><strong>Latitude:</strong></td><td>${data.latitude}</td></tr>
+            <tr><td><strong>Longitude:</strong></td><td>${data.longitude}</td></tr>
+            <tr><td><strong>ASN:</strong></td><td>${data.asn}</td></tr>
+            <tr><td><strong>Org:</strong></td><td>${data.org}</td></tr>
+            <tr><td><strong>ISP:</strong></td><td>${data.isp}</td></tr>
+            <tr><td><strong>Timezone:</strong></td><td>${data.timezone}</td></tr>
+            <tr><td><strong>Currency:</strong></td><td>${data.currency}</td></tr>
           </table>
           </div>
         `;
@@ -87,22 +90,26 @@
       }
 
       const exportWindow = window.open("export.html");
-      exportWindow.
-window.addEventListener("load", async () => {
-  try {
-    const res = await fetch("https://api.ipify.org?format=json&type=v4");
-    const data = await res.json();
-    const myIp = data.ip;
-    document.getElementById("myIpShown").textContent = `Your IP: ${myIp}`;
-    const btn = document.getElementById("useMyIpBtn");
-    btn.style.display = "inline-block";
-    btn.addEventListener("click", () => {
-      document.getElementById("ipInput").value = myIp;
+    }
+
+    /* ✔ Fixed — correct placement of load listener */
+    window.addEventListener("load", async () => {
+      try {
+        const res = await fetch("https://api.ipify.org?format=json&type=v4");
+        const data = await res.json();
+        const myIp = data.ip;
+
+        document.getElementById("myIpShown").textContent = `Your IP: ${myIp}`;
+
+        const btn = document.getElementById("useMyIpBtn");
+        btn.style.display = "inline-block";
+        btn.addEventListener("click", () => {
+          document.getElementById("ipInput").value = myIp;
+        });
+      } catch (e) {
+        console.error("Could not retrieve IPv4 address", e);
+      }
     });
-  } catch (e) {
-    console.error("Could not retrieve IPv4 address", e);
-  }
-});
-</script>
+  </script>
 </body>
 </html>
